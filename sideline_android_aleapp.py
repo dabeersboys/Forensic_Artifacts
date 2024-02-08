@@ -48,7 +48,7 @@ def get_schats(files_found, report_folder, seeker, wrap_text, time_offset):
             JOIN
             conversation_item ON contact_address.address_e164 = conversation_item.address
             ORDER BY
-            conversation_item.timestamp DESC;--
+            conversation_item.timestamp DESC
             ''')
 
             all_rows = cursor.fetchall()
@@ -68,7 +68,7 @@ def get_schats(files_found, report_folder, seeker, wrap_text, time_offset):
             continue
         
     if data_list:
-        description = 'Native downloads'
+        description = 'Sideline Chats and Calls'
         report = ArtifactHtmlReport('Sideline Chats')
         report.start_artifact_report(report_folder, 'Sideline Chats', description)
         report.add_script()
