@@ -1,0 +1,22 @@
+--databse found at /data/data/com.sideline.phone.number/databases/textfree
+--Converts time from unit to readable timestamp and puts it in new column call 'UTC_TIMESTAMP'
+--Orders the results in a descending order (newest to oldest) if you want oldest to newst change the DESC to ASC.
+SELECT
+    contact_address.native_first_name,
+    contact_address.native_last_name,
+    CASE conversation_item.method
+        WHEN '1' THEN 'Text'
+        WHEN '3' THEN 'Call'
+        WHEN '8' THEN 'Voicemail'
+        ELSE 'Unknown'
+    END AS method,
+    conversation_item.message_text,
+	datetime(conversation_item.timestamp / 1000, 'unixepoch', 'localtime') AS UTC_TIMESTAMP,
+    conversation_item.duration,
+    conversation_item.address
+FROM
+    contact_address
+JOIN
+    conversation_item ON contact_address.address_e164 = conversation_item.address
+ORDER BY
+    conversation_item.timestamp DESC;--
