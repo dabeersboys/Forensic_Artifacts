@@ -1,5 +1,5 @@
 __artifacts_v2__ = {
-    "get_schats": {
+    "sChats": {
         "name": "Sideline Chats and Calls",
         "description": "Parses Sideline's textfree database",
         "author": "Matt Beers",
@@ -69,17 +69,17 @@ def get_schats(files_found, report_folder, seeker, wrap_text, time_offset):
         
     if data_list:
         description = 'Native downloads'
-        report = ArtifactHtmlReport('Native Downloads')
-        report.start_artifact_report(report_folder, 'Native Downloads', description)
+        report = ArtifactHtmlReport('Sideline Chats')
+        report.start_artifact_report(report_folder, 'Sideline Chats', description)
         report.add_script()
         data_headers = ('First Name','Last Name','Method','Message Text','UTC Timestamp','Duration','Phone Number')
         report.write_artifact_data_table(data_headers, data_list, file_found,html_escape=False)
         report.end_artifact_report()
         
-        tsvname = 'Native Downloads'
+        tsvname = 'Sideline Chats'
         tsv(report_folder, data_headers, data_list, tsvname)
         
-        tlactivity = 'Native Downloads'
+        tlactivity = 'Sideline Chats'
         timeline(report_folder, tlactivity, data_list, data_headers)
     
     else:
