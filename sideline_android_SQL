@@ -1,6 +1,7 @@
 --databse found at /data/data/com.sideline.phone.number/databases/textfree
 --Converts time from unit to readable timestamp and puts it in new column call 'UTC_TIMESTAMP'
 --Orders the results in a descending order (newest to oldest) if you want oldest to newst change the DESC to ASC.
+--Convers the numerical values in method to readable actcions, ie 1 = Text 3 = Call and 8 = voicemail
 SELECT
     contact_address.native_first_name,
     contact_address.native_last_name,
