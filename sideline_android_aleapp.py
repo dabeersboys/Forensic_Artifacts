@@ -27,7 +27,7 @@ def get_schats(files_found, report_folder, seeker, wrap_text, time_offset):
         
         if file_found.endswith('testfree'):
             db = open_sqlite_db_readonly(file_found)
-            #Get file downloads
+            #SQL QUERY TIME!
             cursor = db.cursor()
             cursor.execute('''
             SELECT
