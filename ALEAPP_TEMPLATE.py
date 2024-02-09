@@ -26,7 +26,7 @@ def get_acmechats(files_found, report_folder, seeker, wrap_text, time_offset):#y
     for file_found in files_found:
         file_found = str(file_found)
         
-        if file_found.endswith('textfree'):
+        if file_found.endswith('database.db'):#put the database name here
             db = open_sqlite_db_readonly(file_found)
             cursor = db.cursor()
             #SQL QUERY TIME! START YOUR QUERY AT THE SELECT STATEMENT. ITS A REQUIREMENT TO HAVE YOUR TIMESTAMPE FIRST FOR LEAPP ARTIFACTS
