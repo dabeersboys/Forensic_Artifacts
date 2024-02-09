@@ -54,12 +54,12 @@ def get_schats(files_found, report_folder, seeker, wrap_text, time_offset):
             all_rows = cursor.fetchall()
             usageentries = len(all_rows)
             if usageentries > 0:
-                #for row in all_rows:
-                #    last_mod_date = row[0]
-                #   if last_mod_date is None:
-                #       pass
-                #   else:
-                #       last_mod_date = convert_utc_human_to_timezone(convert_ts_human_to_utc(last_mod_date),time_offset)
+                for row in all_rows:
+                    last_mod_date = row[0]
+                   if last_mod_date is None:
+                       pass
+                   else:
+                       last_mod_date = convert_utc_human_to_timezone(convert_ts_human_to_utc(last_mod_date),time_offset)
                 
                     data_list.append((row[0],row[1],row[2],row[3],row[4],row[5],row[6]))
             db.close()
