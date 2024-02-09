@@ -25,7 +25,7 @@ def get_schats(files_found, report_folder, seeker, wrap_text, time_offset):
     for file_found in files_found:
         file_found = str(file_found)
         
-        if file_found.endswith('testfree'):
+        if file_found.endswith('textfree'):
             db = open_sqlite_db_readonly(file_found)
             #SQL QUERY TIME!
             cursor = db.cursor()
@@ -55,11 +55,11 @@ def get_schats(files_found, report_folder, seeker, wrap_text, time_offset):
             usageentries = len(all_rows)
             if usageentries > 0:
                 for row in all_rows:
-                    last_mod_date = row[0]
-                   if last_mod_date is None:
-                       pass
-                   else:
-                       last_mod_date = convert_utc_human_to_timezone(convert_ts_human_to_utc(last_mod_date),time_offset)
+                #    last_mod_date = row[0]
+                #   if last_mod_date is None:
+                #       pass
+                #   else:
+                #       last_mod_date = convert_utc_human_to_timezone(convert_ts_human_to_utc(last_mod_date),time_offset)
                 
                     data_list.append((row[0],row[1],row[2],row[3],row[4],row[5],row[6]))
             db.close()
