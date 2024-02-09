@@ -31,6 +31,7 @@ def get_schats(files_found, report_folder, seeker, wrap_text, time_offset):
             cursor = db.cursor()
             cursor.execute('''
             SELECT
+            datetime(conversation_item.timestamp / 1000, 'unixepoch', 'localtime') AS TIMESTAMP,
             contact_address.native_first_name,
             contact_address.native_last_name,
             CASE conversation_item.method
@@ -40,7 +41,6 @@ def get_schats(files_found, report_folder, seeker, wrap_text, time_offset):
             ELSE 'Unknown'
             END AS method,
             conversation_item.message_text,
-            datetime(conversation_item.timestamp / 1000, 'unixepoch', 'localtime') AS UTC_TIMESTAMP,
             conversation_item.duration,
             conversation_item.address
             FROM
@@ -72,7 +72,7 @@ def get_schats(files_found, report_folder, seeker, wrap_text, time_offset):
         report = ArtifactHtmlReport('Sideline Chats')
         report.start_artifact_report(report_folder, 'Sideline Chats', description)
         report.add_script()
-        data_headers = ('First Name','Last Name','Method','Message Text','UTC Timestamp','Duration','Phone Number')
+        data_headers = ('Timestamp','First Name','Last Name','Method','Message Text','Duration','Phone Number')
         report.write_artifact_data_table(data_headers, data_list, file_found,html_escape=False)
         report.end_artifact_report()
         
