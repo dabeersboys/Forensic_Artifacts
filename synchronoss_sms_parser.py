@@ -1,3 +1,6 @@
+#this script will parse Synchronoss SMS messages from a search warrant return.
+#use CLI to execute this python script, drag and drop the sms folder into CLI and hit enter.
+#once executed, a sms_report.html file will be created for easier viewing.
 import os
 
 def create_html_table(directory):
