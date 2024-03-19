@@ -14,7 +14,7 @@ def create_html_table(directory):
                 directory_name = os.path.basename(os.path.dirname(root))
                 file_name = os.path.basename(file)
                 
-                with open(file_path, 'r') as f:
+                with open(file_path, 'r', encoding='utf-8') as f:  # Specify encoding
                     file_contents = f.read()
                 
                 file_info.append((date_folder, directory_name, file_name, file_contents))
@@ -33,8 +33,10 @@ def main():
     sms_directory = input("Drag and drop sms folder here. Remove any quotations in file path: ")
     html_table = create_html_table(sms_directory)
     
-    with open("sms_report.html", 'w') as output_file:
-        output_file.write(html_table)
+    with open("sms_report.html", 'w', encoding='utf-8') as output_file:
+        output_file.write(html_table.encode('utf-8', errors='ignore').decode('utf-8'))
+
+
 
 if __name__ == "__main__":
     main()
