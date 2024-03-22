@@ -30,7 +30,7 @@ def create_html_table(directory):
     return table_content
 
 def main():
-    sms_directory = input("Drag and drop sms folder here. Remove any quotations in file path: ")
+    sms_directory = input("Drag and drop sms folder here.").strip('"')
     html_table = create_html_table(sms_directory)
     
     with open("sms_report.html", 'w', encoding='utf-8') as output_file:
