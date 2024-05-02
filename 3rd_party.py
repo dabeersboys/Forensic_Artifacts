@@ -1,3 +1,6 @@
+#For use with a list of installed apps on a mobile device to aid in filtering not native apps for further research and analysis.
+#Files need to be like a word list with one package name perline
+
 def filter_lines(input_file, output_file):
     with open(input_file, 'r') as infile:
         lines = infile.readlines()
