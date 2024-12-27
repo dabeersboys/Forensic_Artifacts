@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Artifacts version="1.0">
+  <Artifact type="SqliteArtifact" name="MeetMe Conversations" version="1.0" platform="Android">
+    <Source type="FileName">chats.db</Source>
+    <Query>
+		SELECT 
+		messages.thread_id,
+		members.first_name,
+		members.last_name,
+		messages.sent_by,
+		messages.sent_at,
+		messages.body,
+		messages.type,
+		messages.local_path
+		FROM 
+		messages
+		LEFT JOIN 
+		members
+		ON 
+		members.member_id = messages.sent_by
+		ORDER BY 
+		messages.thread_id, 
+		messages.sent_at;
+	</Query>
+    <Fragments>
+      <Fragment source="thread_id" alias="thread_id" datatype="String" category="none"/>
+	  <Fragment source="first_name" alias="first_name" datatype="String" category="none"/>
+	  <Fragment source="last_name" alias="last_name" datatype="String" category="none"/>
+	  <Fragment source="sent_by" alias="sent_by" datatype="String" category="none"/>
+	  <Fragment source="sent_at" alias="sent_at" datatype="String" category="none"/>
+	  <Fragment source="body" alias="body" datatype="String" category="none"/>
+	  <Fragment source="type" alias="type" datatype="String" category="none"/>
+	  <Fragment source="local_path" alias="local_path" datatype="String" category="none"/>
+    </Fragments>
+  </Artifact>
+</Artifacts>
