@@ -39,7 +39,7 @@ def filter_lines_to_html(input_file, output_file, is_android):
         </style>
     </head>
     <body>
-        <h1>Filtered Applications Report</h1>
+        <h1>3rd Party App Triage Report</h1>
         <ul>
     """
 
@@ -59,7 +59,7 @@ def filter_lines_to_html(input_file, output_file, is_android):
 
 
 input_file = input("Drag and Drop Installed Apps Text File: ").strip('"')
-output_file = "./3rd_Party_AppsReport.html"
+output_file = "./3rd_Party_Apps_Report.html"
 
 
 while True:
