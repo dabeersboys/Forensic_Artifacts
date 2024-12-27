@@ -28,7 +28,7 @@ def filter_lines_to_html(input_file, output_file, is_android):
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>App Filter Report</title>
+        <title>3rd Party App Triage Report</title>
         <style>
             body { font-family: Arial, sans-serif; margin: 20px; }
             h1 { color: #333; }
