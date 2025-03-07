@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Artifacts version="1.0">
+  <Artifact type="SqliteArtifact" name="TOR Bookmarks" version="1.0" platform="Android">
+    <Source type="FileName">org.torproject.torbrowser\files\places.sqlite</Source>
+    <Query>
+		SELECT datetime(moz_bookmarks.dateAdded / 1000, 'unixepoch') as Date_Added,
+		moz_bookmarks.title as Bookmark_Title,
+		moz_places.url as Onion_URL
+		FROM moz_bookmarks
+		JOIN moz_places ON moz_bookmarks.fk = moz_places.id;
+	</Query>
+    <Fragments>
+      <Fragment source="Date_Added" alias="Date_Added" datatype="DateTime" category="datetime"/>
+	  <Fragment source="Bookmark_Title" alias="Bookmark_Title" datatype="String" category="none"/>
+	  <Fragment source="Onion_URL" alias="Onion_URL" datatype="String" category="none"/>
+    </Fragments>
+  </Artifact>
+</Artifacts>
