@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Created by Matt Beers and Anna Truss-->
 <Artifacts version="1.0">
-  <Artifact type="SqliteArtifact" name="CashApp Transactions" version="1.0" platform="Android">
+  <Artifact type="SqliteArtifact" name="Android CashApp Transactions" version="1.0" platform="Android">
     <Source type="FileName">cash_money.db</Source>
     <Query>
-		Select 
-        payment.role,
-        payment.sender_id,
-        CASE WHEN customer.cashtag IS NULL THEN '***NO CASH TAG PRESENT***' ELSE customer.cashtag END,
-        customer.customer_display_name,
-        payment.recipient_id,
-        CASE WHEN customer1.cashtag IS NULL THEN '***NO CASH TAG PRESENT***' ELSE customer1.cashtag END,
-        customer1.customer_display_name,
-        payment.state,
-        datetime(payment.display_date / 1000.0, 'unixepoch'),
-        CASE WHEN json_extract (payment.render_data, '$."note"') IS NULL THEN '***NO NOTE SUBMITTED***' ELSE json_extract (payment.render_data, '$."note"') END,
-        printf("$%.2f", json_extract(payment.render_data, '$."amount"."amount"') / 100.0)
-		From payment
-        Inner Join customer On customer.customer_id = payment.sender_id
-        Inner Join customer customer1 On payment.recipient_id = customer1.customer_id
-		ORDER BY payment.display_date DESC;
-	</Query>
+        SELECT 
+            payment.role AS Role,
+            payment.sender_id AS Sender_ID,
+            IFNULL(sender.cashtag, '***NO CASH TAG PRESENT***') AS Sender_Cash_Tag,
+            sender.customer_display_name AS Sender_Display_Name,
+            payment.recipient_id AS Recipient_ID,
+            IFNULL(recipient.cashtag, '***NO CASH TAG PRESENT***') AS Recipient_Cash_Tag,
+            recipient.customer_display_name AS Recipient_Display_Name,
+            payment.state AS Payment_State,
+            datetime(payment.display_date / 1000.0, 'unixepoch') AS Display_Date,
+            IFNULL(json_extract(payment.render_data, '$."note"'), '***NO NOTE SUBMITTED***') AS Payment_Note,
+            printf("$%.2f", json_extract(payment.render_data, '$."amount"."amount"') / 100.0) AS Amount
+        FROM payment
+        LEFT JOIN customer AS sender ON sender.customer_id = payment.sender_id
+        LEFT JOIN customer AS recipient ON recipient.customer_id = payment.recipient_id
+        ORDER BY payment.display_date DESC;
+    </Query>
     <Fragments>
-      <Fragment source="role" alias="Role" datatype="String" category="none"/>
-	  <Fragment source="sender_id" alias="Sender ID" datatype="String" category="none"/>
-	  <Fragment source="cash_tag" alias="Cash Tag" datatype="String" category="none"/>
-	  <Fragment source="customer_display_name" alias="Display Name" datatype="String" category="none"/>
-	  <Fragment source="recipient_id" alias="Recipient ID" datatype="String" category="none"/>
-	  <Fragment source="cash_tag" alias="Cash Tag" datatype="String" category="none"/>
-	  <Fragment source="customer_display_name" alias="Cusatomer Display Name" datatype="String" category="none"/>
-	  <Fragment source="state" alias="Payment State" datatype="String" category="none"/>
-	  <Fragment source="display_date" alias="Date" datatype="String" category="none"/>
-	  <Fragment source="render_data" alias="Payment Note" datatype="String" category="none"/>
-	  <Fragment source="render_data" alias="Amount" datatype="String" category="none"/>
+        <Fragment source="Role" alias="Role" datatype="String" category="none"/>
+        <Fragment source="Sender_ID" alias="Sender ID" datatype="String" category="none"/>
+        <Fragment source="Sender_Cash_Tag" alias="Sender Cash Tag" datatype="String" category="none"/>
+        <Fragment source="Sender_Display_Name" alias="Sender Display Name" datatype="String" category="none"/>
+        <Fragment source="Recipient_ID" alias="Recipient ID" datatype="String" category="none"/>
+        <Fragment source="Recipient_Cash_Tag" alias="Recipient Cash Tag" datatype="String" category="none"/>
+        <Fragment source="Recipient_Display_Name" alias="Recipient Display Name" datatype="String" category="none"/>
+        <Fragment source="Payment_State" alias="Payment State" datatype="String" category="none"/>
+        <Fragment source="Display_Date" alias="Date" datatype="String" category="none"/>
+        <Fragment source="Payment_Note" alias="Payment Note" datatype="String" category="none"/>
+        <Fragment source="Amount" alias="Amount" datatype="String" category="none"/>
     </Fragments>
   </Artifact>
 </Artifacts>
