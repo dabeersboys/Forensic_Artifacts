@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Artifacts version="1.0">
+  <Artifact type="SqliteArtifact" name="CashApp Transactions" version="1.0" platform="Android">
+    <Source type="FileName">cash_money.db</Source>
+    <Query>
+		Select 
+        payment.role,
+        payment.sender_id,
+        CASE WHEN customer.cashtag IS NULL THEN '***NO CASH TAG PRESENT***' ELSE customer.cashtag END,
+        customer.customer_display_name,
+        payment.recipient_id,
+        CASE WHEN customer1.cashtag IS NULL THEN '***NO CASH TAG PRESENT***' ELSE customer1.cashtag END,
+        customer1.customer_display_name,
+        payment.state,
+        datetime(payment.display_date / 1000.0, 'unixepoch'),
+        CASE WHEN json_extract (payment.render_data, '$."note"') IS NULL THEN '***NO NOTE SUBMITTED***' ELSE json_extract (payment.render_data, '$."note"') END,
+        printf("$%.2f", json_extract(payment.render_data, '$."amount"."amount"') / 100.0)
+		From payment
+        Inner Join customer On customer.customer_id = payment.sender_id
+        Inner Join customer customer1 On payment.recipient_id = customer1.customer_id
+		ORDER BY payment.display_date DESC;
+	</Query>
+    <Fragments>
+      <Fragment source="role" alias="Role" datatype="String" category="none"/>
+	  <Fragment source="sender_id" alias="Sender ID" datatype="String" category="none"/>
+	  <Fragment source="cash_tag" alias="Cash Tag" datatype="String" category="none"/>
+	  <Fragment source="customer_display_name" alias="Display Name" datatype="String" category="none"/>
+	  <Fragment source="recipient_id" alias="Recipient ID" datatype="String" category="none"/>
+	  <Fragment source="cash_tag" alias="Cash Tag" datatype="String" category="none"/>
+	  <Fragment source="customer_display_name" alias="Cusatomer Display Name" datatype="String" category="none"/>
+	  <Fragment source="state" alias="Payment State" datatype="String" category="none"/>
+	  <Fragment source="display_date" alias="Date" datatype="String" category="none"/>
+	  <Fragment source="render_data" alias="Payment Note" datatype="String" category="none"/>
+	  <Fragment source="render_data" alias="Amount" datatype="String" category="none"/>
+    </Fragments>
+  </Artifact>
+</Artifacts>
